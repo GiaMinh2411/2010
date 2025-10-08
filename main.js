@@ -2,6 +2,9 @@ let wishes = [];
 let currentGender = null;
 let selectedWishId = null;
 
+// 🌐 Địa chỉ API backend trên Render
+const API_BASE = 'https://two010-1.onrender.com/api';
+
 // ✅ Khởi động trang
 async function init() {
     await loadWishes();
@@ -14,7 +17,7 @@ async function init() {
 
 // 🌸 Lấy dữ liệu từ SQL Server (qua API Node)
 async function loadWishes() {
-    const res = await fetch('http://localhost:3000/api/wishes');
+    const res = await fetch(`${API_BASE}/wishes`);
     wishes = await res.json();
 }
 
@@ -28,7 +31,7 @@ async function submitWish() {
         return;
     }
 
-    await fetch('http://localhost:3000/api/wishes', {
+    await fetch(`${API_BASE}/wishes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nickname, wishText })
@@ -45,7 +48,7 @@ async function submitWish() {
 // ❤️ Thả tim
 async function likeCurrentWish() {
     if (!selectedWishId) return;
-    await fetch(`http://localhost:3000/api/wishes/${selectedWishId}/heart`, { method: 'PUT' });
+    await fetch(`${API_BASE}/wishes/${selectedWishId}/heart`, { method: 'PUT' });
     await loadWishes();
     updateStats();
     renderLeaderboard();
