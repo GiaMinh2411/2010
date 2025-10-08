@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Cây Lời Chúc IUH - Quét Mã Nhận Yêu Thương</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="petals-container" id="petalsContainer"></div>
+    
+    <div class="header">
+        <div class="logo">
+            <div class="logo-circle">IUH</div>
+        </div>
+        <div class="controls">
+            <button class="control-btn" id="musicBtn" title="Bật/Tắt nhạc">
+                <span class="icon">🎵</span>
+            </button>
+            <button class="control-btn" id="resetBtn" title="Trồng lại cây">
+                <span class="icon">🔄</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="genderPopup">
+        <div class="popup-box animate-bloom">
+            <h2 class="popup-title">🌸 Cây Lời Chúc IUH 🌸</h2>
+            <p class="popup-desc">Chào mừng đến với cây yêu thương! Bạn là ai?</p>
+            <div class="gender-buttons">
+                <button class="gender-btn male" onclick="selectGender('male')">
+                    <span class="gender-icon">👦</span>
+                    <span>Tôi là Nam</span>
+                </button>
+                <button class="gender-btn female" onclick="selectGender('female')">
+                    <span class="gender-icon">👩</span>
+                    <span>Tôi là Nữ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">🌸 Cây Lời Chúc IUH 🌸</h1>
+        <p class="subtitle">Quét Mã Nhận Yêu Thương - 20/10 Women's Day</p>
+        <p class="quote">Mỗi lời chúc là một giọt nước – Mỗi giọt nước làm nở một bông hoa yêu thương 💕</p>
+
+        <div class="stats-box">
+            <div class="stat-item">
+                <span class="stat-icon">🌸</span>
+                <span class="stat-value" id="totalWishes">10</span>
+                <span class="stat-label">lời chúc</span>
+            </div>
+            <div class="stat-divider">·</div>
+            <div class="stat-item">
+                <span class="stat-icon">❤️</span>
+                <span class="stat-value" id="totalHearts">0</span>
+                <span class="stat-label">lượt yêu thích</span>
+            </div>
+        </div>
+
+        <div class="water-btn-container" id="waterBtnContainer" style="display: none;">
+            <button class="water-btn" onclick="showWishForm()">
+                💧 Tưới Nước (Gửi Lời Chúc)
+            </button>
+        </div>
+
+        <div class="tree-container">
+            <svg class="tree-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="trunkGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
+                    </linearGradient>
+                    <filter id="shadow">
+                        <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+                    </filter>
+                </defs>
+                
+                <ellipse cx="400" cy="580" rx="60" ry="15" fill="#654321" opacity="0.3"/>
+                
+                <path class="tree-trunk" d="M 400 580 Q 395 400, 390 300 Q 385 200, 380 150" 
+                      stroke="url(#trunkGradient)" stroke-width="25" fill="none" filter="url(#shadow)"/>
+                
+                <path class="tree-branch" d="M 390 300 Q 350 280, 320 250" 
+                      stroke="url(#trunkGradient)" stroke-width="12" fill="none" opacity="0"/>
+                <path class="tree-branch" d="M 390 300 Q 430 280, 460 250" 
+                      stroke="url(#trunkGradient)" stroke-width="12" fill="none" opacity="0"/>
+                <path class="tree-branch" d="M 385 200 Q 340 190, 300 180" 
+                      stroke="url(#trunkGradient)" stroke-width="10" fill="none" opacity="0"/>
+                <path class="tree-branch" d="M 385 200 Q 430 190, 470 180" 
+                      stroke="url(#trunkGradient)" stroke-width="10" fill="none" opacity="0"/>
+                <path class="tree-branch" d="M 382 250 Q 350 240, 330 220" 
+                      stroke="url(#trunkGradient)" stroke-width="11" fill="none" opacity="0"/>
+                <path class="tree-branch" d="M 388 250 Q 420 240, 450 220" 
+                      stroke="url(#trunkGradient)" stroke-width="11" fill="none" opacity="0"/>
+                
+                <g id="flowersContainer"></g>
+            </svg>
+        </div>
+
+        <div class="leaderboard">
+            <h2 class="leaderboard-title">🏆 Bảng Xếp Hạng Top 10</h2>
+            <div class="leaderboard-list" id="leaderboardList"></div>
+        </div>
+
+        <div class="hashtags">
+            <p>#ICC_IUH #QuetMaNhanYeuThuong</p>
+            <p>#20_10WomenDay #LanToaYeuThuong</p>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="wishFormPopup" style="display: none;">
+        <div class="popup-box wish-form-box animate-bloom">
+            <h3 class="form-title">💧 Gửi Lời Chúc Của Bạn</h3>
+            <div class="form-group">
+                <label>Biệt danh của bạn:</label>
+                <input type="text" id="nicknameInput" placeholder="VD: Bạn Nam IUH" class="form-input">
+            </div>
+            <div class="form-group">
+                <label>Lời chúc của bạn:</label>
+                <textarea id="wishInput" placeholder="Gửi lời chúc chân thành đến các cô, chị..." class="form-textarea"></textarea>
+            </div>
+            <div class="form-buttons">
+                <button class="btn-submit" onclick="submitWish()">🌸 Gửi Lời Chúc</button>
+                <button class="btn-cancel" onclick="closeWishForm()">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="wishCardPopup" style="display: none;">
+        <div class="popup-box wish-card-box animate-bloom">
+            <div class="flower-icon-large">🌸</div>
+            <h3 class="wish-card-nickname" id="cardNickname"></h3>
+            <p class="wish-card-text" id="cardText"></p>
+            <div class="card-buttons">
+                <button class="btn-like" onclick="likeCurrentWish()">
+                    <span class="heart-icon">❤️</span>
+                    <span id="cardHearts">0</span> Tim
+                </button>
+                <button class="btn-close" onclick="closeWishCard()">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="floatingHeartsContainer"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
