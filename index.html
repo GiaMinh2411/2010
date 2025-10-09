@@ -66,38 +66,22 @@
         </div>
 
         <div class="tree-container">
-            <svg class="tree-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="trunkGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
-                    </linearGradient>
-                    <filter id="shadow">
-                        <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
-                    </filter>
-                </defs>
-                
-                <ellipse cx="400" cy="580" rx="60" ry="15" fill="#654321" opacity="0.3"/>
-                
-                <path class="tree-trunk" d="M 400 580 Q 395 400, 390 300 Q 385 200, 380 150" 
-                      stroke="url(#trunkGradient)" stroke-width="25" fill="none" filter="url(#shadow)"/>
-                
-                <path class="tree-branch" d="M 390 300 Q 350 280, 320 250" 
-                      stroke="url(#trunkGradient)" stroke-width="12" fill="none" opacity="0"/>
-                <path class="tree-branch" d="M 390 300 Q 430 280, 460 250" 
-                      stroke="url(#trunkGradient)" stroke-width="12" fill="none" opacity="0"/>
-                <path class="tree-branch" d="M 385 200 Q 340 190, 300 180" 
-                      stroke="url(#trunkGradient)" stroke-width="10" fill="none" opacity="0"/>
-                <path class="tree-branch" d="M 385 200 Q 430 190, 470 180" 
-                      stroke="url(#trunkGradient)" stroke-width="10" fill="none" opacity="0"/>
-                <path class="tree-branch" d="M 382 250 Q 350 240, 330 220" 
-                      stroke="url(#trunkGradient)" stroke-width="11" fill="none" opacity="0"/>
-                <path class="tree-branch" d="M 388 250 Q 420 240, 450 220" 
-                      stroke="url(#trunkGradient)" stroke-width="11" fill="none" opacity="0"/>
-                
-                <g id="flowersContainer"></g>
-            </svg>
-        </div>
+    <svg id="flowersContainer" width="800" height="500" viewBox="0 0 800 500">
+        <!-- 🌳 Thân cây -->
+        <path d="M400 500 C390 400 410 300 400 200" stroke="#7b4a12" stroke-width="20" fill="none" />
+
+        <!-- 🌿 Các nhánh -->
+        <path d="M400 300 C350 280 300 250 250 220" stroke="#7b4a12" stroke-width="10" fill="none" />
+        <path d="M400 270 C450 250 500 220 550 190" stroke="#7b4a12" stroke-width="10" fill="none" />
+        <path d="M400 250 C360 230 330 200 310 170" stroke="#7b4a12" stroke-width="8" fill="none" />
+        <path d="M400 230 C440 210 480 180 520 150" stroke="#7b4a12" stroke-width="8" fill="none" />
+        <path d="M400 210 C380 190 370 160 360 140" stroke="#7b4a12" stroke-width="6" fill="none" />
+        <path d="M400 190 C420 170 450 140 470 120" stroke="#7b4a12" stroke-width="6" fill="none" />
+
+        <!-- 🌸 Hoa sẽ được JS thêm vào -->
+    </svg>
+</div>
+
 
         <div class="leaderboard">
             <h2 class="leaderboard-title">🏆 Bảng Xếp Hạng Top 10</h2>
