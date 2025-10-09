@@ -103,18 +103,33 @@ function updateStats() {
 
 function renderFlowers() {
     const container = document.getElementById('flowersContainer');
-    container.innerHTML = '';
-    const positions = [
-        { x: 380, y: 150 }, { x: 320, y: 250 }, { x: 460, y: 250 },
-        { x: 300, y: 180 }, { x: 470, y: 180 }, { x: 330, y: 220 },
-        { x: 450, y: 220 }, { x: 360, y: 280 }, { x: 410, y: 280 }
+    const existingFlowers = container.querySelectorAll('.flower');
+    existingFlowers.forEach(f => f.remove());
+
+    // ✅ Giới hạn tối đa 30 hoa
+    const visibleWishes = wishes.slice(0, 30);
+
+    // 🌿 Các nhánh — tọa độ dọc theo cành
+    const branches = [
+        { x1: 250, y1: 220, x2: 400, y2: 300 },
+        { x1: 550, y1: 190, x2: 400, y2: 270 },
+        { x1: 310, y1: 170, x2: 400, y2: 250 },
+        { x1: 520, y1: 150, x2: 400, y2: 230 },
+        { x1: 360, y1: 140, x2: 400, y2: 210 },
+        { x1: 470, y1: 120, x2: 400, y2: 190 }
     ];
-    wishes.slice(0, 30).forEach((wish, i) => {
-        const pos = positions[i % positions.length];
+
+    // 🌸 Rải hoa trên các nhánh
+    visibleWishes.forEach((wish, i) => {
+        const branch = branches[i % branches.length];
+        const t = Math.random(); // vị trí dọc theo nhánh (0–1)
+        const x = branch.x1 + (branch.x2 - branch.x1) * t + (Math.random() * 20 - 10);
+        const y = branch.y1 + (branch.y2 - branch.y1) * t + (Math.random() * 20 - 10);
+
         const flower = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        flower.setAttribute('x', pos.x);
-        flower.setAttribute('y', pos.y);
-        flower.setAttribute('font-size', '32');
+        flower.setAttribute('x', x);
+        flower.setAttribute('y', y);
+        flower.setAttribute('font-size', '28');
         flower.setAttribute('cursor', 'pointer');
         flower.setAttribute('class', 'flower flower-bloom');
         flower.textContent = '🌸';
@@ -122,6 +137,7 @@ function renderFlowers() {
         container.appendChild(flower);
     });
 }
+
 
 function renderLeaderboard() {
     const list = document.getElementById('leaderboardList');
