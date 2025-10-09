@@ -689,4 +689,26 @@ body {
         font-size: 16px;
         padding: 15px 30px;
     }
+    .tree-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#flowersContainer {
+    background: linear-gradient(to top, #fef6f6, #fdfdfd);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(150, 100, 50, 0.2);
+}
+
+.flower-bloom {
+    animation: bloom 1.5s ease-out;
+}
+
+@keyframes bloom {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 }
