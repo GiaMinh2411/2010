@@ -45,15 +45,33 @@ async function submitWish() {
     renderLeaderboard();
 }
 
-// ❤️ Thả tim
+// ❤️ Thả tim (mỗi người chỉ được thả 1 tim cho 1 lời chúc)
 async function likeCurrentWish() {
     if (!selectedWishId) return;
+
+    // Lấy danh sách ID lời chúc mà người này đã thả tim (lưu trong localStorage)
+    const likedWishes = JSON.parse(localStorage.getItem('likedWishes')) || [];
+
+    // Nếu người này đã thả tim cho lời chúc này -> chặn
+    if (likedWishes.includes(selectedWishId)) {
+        alert("💖 Bạn đã thả tim cho lời chúc này rồi!");
+        return;
+    }
+
+    // Nếu chưa thả, gửi yêu cầu tăng tim lên server
     await fetch(`${API_BASE}/wishes/${selectedWishId}/heart`, { method: 'PUT' });
+
+    // Lưu lại ID này vào localStorage
+    likedWishes.push(selectedWishId);
+    localStorage.setItem('likedWishes', JSON.stringify(likedWishes));
+
+    // Cập nhật lại giao diện
     await loadWishes();
     updateStats();
     renderLeaderboard();
     createFloatingHeart();
 }
+
 
 // ========================
 // GIAO DIỆN
